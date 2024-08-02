@@ -1,0 +1,11 @@
+Model VACBOTKNIFE
+{
+   useactorroll
+   useactorpitch
+   noperpixellighting  
+   Path "MD/KITCHEN"
+   SKIN 0 "KNIFEBIG.png" 
+   MODEL 0 "KNIFEBIG.md3" 
+   Scale 0.3 0.3 0.3
+   FrameIndex VOXE L 0 0 
+}

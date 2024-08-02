@@ -1,0 +1,78 @@
+class VACBOTKNIFE : KNIFEBIG {
+	default {
+		+NOINTERACTION;
+		SELACOACTOR.SleepDistance 0;
+	}
+
+	override void Tick() {
+		if (Master == NULL) {
+			return;
+		}
+		Actor owner = Actor(Master);
+		super.Tick();
+		A_Warp(AAPTR_MASTER, 3, 0, 5.5, 0, WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE);
+		FLineTraceData testNode;
+		int offset = owner.angle + frandom(-2, 2);
+		int vangle = frandom(-2, 2);
+		int dist = 18;
+		float height = 0;
+		owner.LineTrace(offset, dist, vangle, TRF_ALLACTORS|TRF_BLOCKSELF, height, data: testNode);
+
+		
+		/*bool debug_enabled = true;
+		if (debug_enabled) {
+			Vector3 pos = (0,0,0);
+			pos.x = pos.x + Cos(offset) * dist;
+			pos.y = pos.y + Sin(offset) * dist;
+			pos.z = pos.z + height + Tan(vangle) * dist;
+			A_SpawnParticle("#ff66ff", SPF_FULLBRIGHT, 35, 10, 0, pos.x, pos.y, pos.z);
+		}*/
+		
+		if (testNode.HitType == TRACE_HitActor && testNode.HitActor)
+		{
+			if (testNode.HitActor.CheckClass('SelacoEnemy', AAPTR_DEFAULT, true) || testNode.HitActor.CheckClass('Dawn', AAPTR_DEFAULT, true) || testNode.HitActor.CheckClass('VAC_BOT', AAPTR_DEFAULT, true)) {
+				// it's something hittable!
+				testNode.HitActor.DamageMobj(self, Master, 1, 'VACBOTKnife');
+			}
+		}
+
+		
+	}
+}
+
+class VACBOT_Knife_Spawner : Inventory
+{
+	/**
+	Spawns a Knife on the VACBOT.
+	*/
+	bool initialized;
+
+	default {
+		Inventory.MaxAmount 1;
+	}
+
+	override void PostBeginPlay()
+	{
+		owner.A_SpawnItemEx("VACBOTKNIFE", 0, 0, 1, 0, 0, 0, 0, SXF_SETMASTER);
+		initialized = true;
+	}
+}
+
+
+
+class Knife_VACBOTReplacementHandler : EventHandler
+{
+	override void OnRegister() {
+		console.printf("Knife_VACBOTReplacementHandler registered");
+	}
+
+	override void WorldThingSpawned(WorldEvent e) {
+		if(!e.Thing) { return; }
+		if (Cvar.FindCVar('vacbot_knife_enabled').GetInt() == 0) { return; }
+
+		if(e.Thing.CheckClass('VAC_BOT', AAPTR_DEFAULT, true)) {
+      		// spawn a knife spawner!!!!
+			e.Thing.GiveInventory('VACBOT_Knife_Spawner', 1);
+		}
+    }
+}

@@ -1,0 +1,11 @@
+Gameinfo 
+{
+    AddEventHandlers = "Knife_VACBOTReplacementHandler"
+}
+
+DamageType VACBOTKnife
+{
+    Factor = 1
+    NoArmor
+    Obituary = "%o was stabbed by a VAC-Bot."
+}

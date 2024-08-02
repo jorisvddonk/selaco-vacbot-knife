@@ -1,0 +1,1 @@
+nosave int vacbot_knife_enabled = 1;

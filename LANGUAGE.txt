@@ -1,0 +1,7 @@
+[enu default]
+
+VACBOT_KNIFE_MOD_NAME="VAC-Bot with a Knife";
+VACBOT_KNIFE_MOD_DESCRIPTION="Adds a knife to VAC-Bots";
+
+VACBOT_KNIFE_TOGGLE_MOD__SETTING="Mod active";
+VACBOT_KNIFE_TOGGLE_MOD__DESCRIPTION="Enables or disables the mod. Changing this requires a map transition/load!";

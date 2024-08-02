@@ -1,0 +1,10 @@
+AddOptionMenu "ModOptionsMenu"
+{
+    ModHeader "$VACBOT_KNIFE_MOD_NAME", "@jorisvddonk", "$VACBOT_KNIFE_MOD_DESCRIPTION", "VKNIFLO", ""
+    Submenu "", "VacbotKnifeOptions"
+}
+
+OptionMenu "VacbotKnifeOptions"
+{
+    TooltipOption "$VACBOT_KNIFE_TOGGLE_MOD__SETTING", "$VACBOT_KNIFE_TOGGLE_MOD__DESCRIPTION", "", "vacbot_knife_enabled", YesNo
+}
